@@ -3,6 +3,7 @@ import cors from "cors";
 import express, { NextFunction, Request, Response } from "express";
 import chalk from "chalk";
 import { PORT } from "./utils/envs";
+import multer from "multer";
 
 // Variables
 const app = express();
@@ -11,6 +12,9 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 app.use(express.static("src/public"));
+app.use("/uploads", express.static("uploads"));
+
+const upload = multer({ dest: "uploads/", limits: { fileSize: 1000000 } });
 
 // Routes
 app.get("/", (req, res) => {
